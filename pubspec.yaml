@@ -1,0 +1,15 @@
+name: riverpod_community_mutation
+description: A mutation implementation for the riverpod community - made by Theodo
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  riverpod: ^2.6.1
+  theodo_analysis: ^1.4.0
+
+dev_dependencies:
+  custom_lint: ^0.7.5
+  riverpod_lint: ^2.6.5
