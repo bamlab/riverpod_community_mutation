@@ -9,7 +9,3 @@ environment:
 dependencies:
   riverpod: ^2.6.1
   theodo_analysis: ^1.4.0
-
-dev_dependencies:
-  custom_lint: ^0.7.5
-  riverpod_lint: ^2.6.5
