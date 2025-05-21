@@ -34,22 +34,6 @@ Here's a complete example of how to use the mutation mixin:
 import 'package:mutation/mutation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-// First, create your API or service class
-class TodoApi {
-  Future<Todo> createTodo(String title) async {
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 1));
-    return Todo(id: DateTime.now().millisecondsSinceEpoch, title: title);
-  }
-}
-
-// Create your data model
-class Todo {
-  const Todo({required this.id, required this.title});
-  final int id;
-  final String title;
-}
-
 // Create your mutation provider
 @riverpod
 class CreateTodoMutation extends _$CreateTodoMutation with Mutation<Todo> {
@@ -74,9 +58,6 @@ class CreateTodoMutation extends _$CreateTodoMutation with Mutation<Todo> {
   }
 }
 
-// Create your API provider
-final todoApiProvider = Provider((ref) => TodoApi());
-
 // Usage in your UI
 class TodoScreen extends ConsumerWidget {
   @override
@@ -89,14 +70,17 @@ class TodoScreen extends ConsumerWidget {
           onPressed: () {
             ref.read(createTodoMutationProvider.notifier).createTodo('New Todo');
           },
-          child: const Text('Create Todo'),
+          child: mutation.map(
+            // Show label while in idle state
+            idle: () => ThemeText.bodyLarge('Create Todo'),
+            // Show loading state
+            loading: () => ThemeText.bodyLarge('Loading...'),
+            // Show success state
+            data: (data) => Icon(Icons.check),
+            // Show error state
+            error: (error, _) => Icon(Icons.close),
+          ),
         ),
-        // Show loading state
-        if (mutation.isLoading) const CircularProgressIndicator(),
-        // Show error state
-        if (mutation.isError) Text('Error: ${mutation.error}'),
-        // Show success state
-        if (mutation.isSuccess) Text('Created: ${mutation.value?.title}'),
       ],
     );
   }
