@@ -51,7 +51,7 @@ sealed class AsyncUpdate<TData> {
 
   /// Will return the error if status is error, otherwise null.
   Object? get error => switch (this) {
-        ErrorDetails(error: final _error) => _error,
+        ErrorDetails(:final error) => error,
         _ => null,
       };
 
