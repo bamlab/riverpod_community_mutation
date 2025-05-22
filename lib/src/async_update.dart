@@ -17,7 +17,7 @@ sealed class AsyncUpdate<TData> {
 
   /// Your mutation did not work, and an error is set
   const factory AsyncUpdate.error(
-    Object? message,
+    Object? error,
     StackTrace? stackTrace,
   ) = ErrorDetails<TData>;
 
@@ -51,7 +51,7 @@ sealed class AsyncUpdate<TData> {
 
   /// Will return the error if status is error, otherwise null.
   Object? get error => switch (this) {
-        ErrorDetails(:final error) => error,
+        ErrorDetails(error: final _error) => _error,
         _ => null,
       };
 
@@ -138,13 +138,13 @@ class Loading<TData> extends AsyncUpdate<TData> {
 }
 
 class ErrorDetails<TData> extends AsyncUpdate<TData> {
-  const ErrorDetails(this.message, this.stackTrace) : super._();
+  const ErrorDetails(this.error, this.stackTrace) : super._();
 
-  final Object? message;
+  final Object? error;
   final StackTrace? stackTrace;
 
   @override
-  String toString() => 'AsyncUpdate<$TData>.error($message)';
+  String toString() => 'AsyncUpdate<$TData>.error($error)';
 
   @override
   R map<R>({
@@ -153,7 +153,7 @@ class ErrorDetails<TData> extends AsyncUpdate<TData> {
     required R Function(Object? error, StackTrace? stackTrace) error,
     required R Function() loading,
   }) {
-    return error(message, stackTrace);
+    return error(error, stackTrace);
   }
 }
 
