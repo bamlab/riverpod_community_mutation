@@ -9,4 +9,3 @@ environment:
 
 dependencies:
   riverpod: ^2.6.1
-  theodo_analysis: ^1.4.0
