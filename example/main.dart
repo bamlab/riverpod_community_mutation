@@ -1,7 +1,4 @@
-// ignore_for_file: public_member_api_docs
-
-import 'package:riverpod_community_mutation/src/async_update.dart';
-import 'package:riverpod_community_mutation/src/mutation.dart';
+import 'package:riverpod_community_mutation/riverpod_community_mutation.dart';
 import 'package:riverpod/riverpod.dart';
 
 class CreateTodoMutation extends AutoDisposeNotifier<AsyncUpdate<void>>
