@@ -87,6 +87,11 @@ mixin Mutation<TData> on AutoDisposeNotifier<AsyncUpdate<TData>> {
     FutureOr<void> Function(Object? error)? onError,
     FutureOr<void> Function()? onFinally,
   }) async {
+    _lastMutationFn = mutationFn;
+    _lastOnSuccessFn = onSuccess;
+    _lastOnErrorFn = onError;
+    _lastOnFinallyFn = onFinally;
+
     try {
       final value = await mutateAsync(mutationFn);
       await onSuccess?.call(value);
@@ -97,6 +102,27 @@ mixin Mutation<TData> on AutoDisposeNotifier<AsyncUpdate<TData>> {
     }
   }
 
+
+  FutureOr<TData> Function()? _lastMutationFn;
+  FutureOr<void> Function(TData data)? _lastOnSuccessFn;
+  FutureOr<void> Function(Object? error)? _lastOnErrorFn;
+  FutureOr<void> Function()? _lastOnFinallyFn;
+
+  /// Retry the last mutation.
+  ///
+  /// This method is useful when you want to retry a mutation that failed.
+  ///
+  /// Will do nothing if the mutation is not in an error state or if the mutation has not been called yet.
+  Future<void> retry() async {
+    if (_lastMutationFn == null) return;
+    if (!state.isError) return;
+    await mutate(
+      _lastMutationFn!,
+      onSuccess: _lastOnSuccessFn,
+      onError: _lastOnErrorFn,
+      onFinally: _lastOnFinallyFn,
+    );
+  }
   /// Reset mutation status to `idle`
   void reset() {
     state = const AsyncUpdate.idle();
