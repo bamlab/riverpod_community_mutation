@@ -1,6 +1,11 @@
 # Changelog
 
+## 1.1.1
+
+- Fix formatting
+
 ## 1.1.0
+
 - Add retry function
 
 ## 1.0.1
