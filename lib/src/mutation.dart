@@ -102,7 +102,6 @@ mixin Mutation<TData> on AutoDisposeNotifier<AsyncUpdate<TData>> {
     }
   }
 
-
   FutureOr<TData> Function()? _lastMutationFn;
   FutureOr<void> Function(TData data)? _lastOnSuccessFn;
   FutureOr<void> Function(Object? error)? _lastOnErrorFn;
@@ -123,6 +122,7 @@ mixin Mutation<TData> on AutoDisposeNotifier<AsyncUpdate<TData>> {
       onFinally: _lastOnFinallyFn,
     );
   }
+
   /// Reset mutation status to `idle`
   void reset() {
     state = const AsyncUpdate.idle();
