@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+- fix map function
+
 ## 1.1.1
 
 - Fix formatting
