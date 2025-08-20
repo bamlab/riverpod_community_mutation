@@ -153,7 +153,7 @@ class ErrorDetails<TData> extends AsyncUpdate<TData> {
     required R Function(Object? error, StackTrace? stackTrace) error,
     required R Function() loading,
   }) {
-    return error(error, stackTrace);
+    return error(this.error, this.stackTrace);
   }
 }
 
