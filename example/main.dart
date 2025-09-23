@@ -1,8 +1,7 @@
-import 'package:riverpod_community_mutation/riverpod_community_mutation.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:riverpod_community_mutation/riverpod_community_mutation.dart';
 
-class CreateTodoMutation extends AutoDisposeNotifier<AsyncUpdate<void>>
-    with Mutation {
+class CreateTodoMutation extends Notifier<AsyncUpdate<void>> with Mutation {
   @override
   AsyncUpdate<void> build() {
     return const AsyncUpdate<void>.idle();
@@ -24,6 +23,6 @@ class CreateTodoMutation extends AutoDisposeNotifier<AsyncUpdate<void>>
 }
 
 final bussinessMutationProvider =
-    AutoDisposeNotifierProvider<CreateTodoMutation, AsyncUpdate<void>>(
+    NotifierProvider<CreateTodoMutation, AsyncUpdate<void>>(
   CreateTodoMutation.new,
 );

@@ -40,7 +40,7 @@ import 'package:riverpod_community_mutation/src/async_update.dart';
 ///
 /// ![](https://pbs.twimg.com/media/FczFdlfXwAIcCw9?format=jpg&name=small)
 // ignore: invalid_use_of_internal_member, Required with codegen
-mixin Mutation<TData> on AutoDisposeNotifier<AsyncUpdate<TData>> {
+mixin Mutation<TData> on AnyNotifier<AsyncUpdate<TData>, AsyncUpdate<TData>> {
   /// Method that execute a mutation callback and update the state.
   ///
   /// eg:
